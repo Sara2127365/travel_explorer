@@ -1,17 +1,47 @@
-# travel_explorer
+# Travel Explor
 
-A new Flutter project.
+Travel Explor is a Flutter travel application that allows users to explore tourist destinations and view destination details.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- User Registration
+- User Login
+- Forgot Password
+- Explore tourist destinations
+- Search and retrieve destinations using an API
+- Display destination information
+- Clean and organized Flutter project structure
+- State management using Cubit
+- Dependency Injection using GetIt
+- API requests using Dio
+- Supabase Authentication
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter
+- Dart
+- Flutter Bloc / Cubit
+- Dio
+- GetIt
+- Supabase
+- REST API
+- Clean Architecture concepts
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Project Structure
+
+```text
+lib/
+├── core/
+│   ├── di/
+│   ├── networking/
+│   ├── routes/
+│   └── widget/
+│
+└── feature/
+    ├── auth/
+    │   ├── data/
+    │   └── presentation/
+    │
+    └── home/
+        ├── data/
+        └── presentation/
