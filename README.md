@@ -14,7 +14,7 @@ Travel Explor is a Flutter travel application that allows users to explore touri
 - State management using Cubit
 - Dependency Injection using GetIt
 - API requests using Dio
-- Supabase Authentication
+- Firebase Authentication
 
 ## Technologies
 
