@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_explorer/core/di/service_locaor.dart';
+import 'package:travel_explorer/core/routes/app_routes.dart';
 import 'package:travel_explorer/core/widget/button_app.dart';
 import 'package:travel_explorer/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:travel_explorer/feature/auth/presentation/cubit/auth_state.dart';
@@ -28,9 +28,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return BlocProvider(
       create: (context) => getIt<AuthCubit>(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('نسيت كلمة المرور'),
-        ),
+        appBar: AppBar(title: const Text('نسيت كلمة المرور')),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: BlocConsumer<AuthCubit, AuthState>(
@@ -62,11 +60,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.lock_reset,
-                    size: 80,
-                    color: Colors.blue,
-                  ),
+                  const Icon(Icons.lock_reset, size: 80, color: Colors.blue),
 
                   const SizedBox(height: 20),
 

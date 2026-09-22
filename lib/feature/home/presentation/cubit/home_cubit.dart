@@ -5,12 +5,17 @@ import 'package:travel_explorer/feature/home/presentation/cubit/home_state.dart'
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
+
   HomeCubit(this.homeRepo) : super(InitialHomeState());
+
   List<DestinationModel> places = [];
+
   Future<void> getPLaces() async {
     emit(LoadingHomeState());
+
     try {
       places = await homeRepo.getAllPlaces();
+
       emit(SuccessHomeState(places));
     } catch (e) {
       emit(FailureHomeState(e.toString()));

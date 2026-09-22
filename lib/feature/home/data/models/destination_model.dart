@@ -7,6 +7,7 @@ class DestinationModel {
   final double lon;
   final String formatted;
   final String placeId;
+  final String? imageUrl;
 
   DestinationModel({
     required this.name,
@@ -17,6 +18,7 @@ class DestinationModel {
     required this.lon,
     required this.formatted,
     required this.placeId,
+    this.imageUrl,
   });
 
   factory DestinationModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,22 @@ class DestinationModel {
       lon: (properties['lon'] ?? coordinates[0]).toDouble(),
       formatted: properties['formatted'] ?? '',
       placeId: properties['place_id'] ?? '',
+    );
+  }
+
+  DestinationModel copyWith({
+    String? imageUrl,
+  }) {
+    return DestinationModel(
+      name: name,
+      country: country,
+      countryCode: countryCode,
+      city: city,
+      lat: lat,
+      lon: lon,
+      formatted: formatted,
+      placeId: placeId,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 }

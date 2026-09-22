@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     context,
                   ).showSnackBar(SnackBar(content: Text(state.message)));
 
-                  // هنضيف الـnavigation بعد ما نعمل الـroutes.
+                  Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
                 }
 
                 if (state is AuthFailure) {
@@ -78,32 +78,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     const SizedBox(height: 30),
 
-                    CustomTextFormField(label: 'Name', controller: nameController, isPassword: false, readOnly: isLoading,prefixIcon: Icons.person),
+                    CustomTextFormField(
+                      label: 'Name',
+                      controller: nameController,
+                      isPassword: false,
+                      readOnly: isLoading,
+                      prefixIcon: Icons.person,
+                    ),
 
                     const SizedBox(height: 15),
 
-                    CustomTextFormField(label: 'Email', controller: emailController, isPassword: false, readOnly: isLoading,prefixIcon: Icons.email),
-
+                    CustomTextFormField(
+                      label: 'Email',
+                      controller: emailController,
+                      isPassword: false,
+                      readOnly: isLoading,
+                      prefixIcon: Icons.email,
+                    ),
 
                     const SizedBox(height: 15),
 
-
-                    CustomTextFormField(label: 'Password', controller: passwordController, isPassword: true, readOnly: isLoading,prefixIcon: Icons.password,suffixIcon: Icon(Icons.remove_red_eye_sharp),),
-
+                    CustomTextFormField(
+                      label: 'Password',
+                      controller: passwordController,
+                      isPassword: true,
+                      readOnly: isLoading,
+                      prefixIcon: Icons.password,
+                      suffixIcon: Icon(Icons.remove_red_eye_sharp),
+                    ),
 
                     const SizedBox(height: 30),
 
                     ButtonApp(
-                     text: 'Sign Up',
-                     isLoading: isLoading,
+                      text: 'Sign Up',
+                      isLoading: isLoading,
                       onPressed: () {
-                       context.read<AuthCubit>().register(
-                        email: emailController.text.trim(),
-                         password: passwordController.text.trim(),
+                        context.read<AuthCubit>().register(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
                           name: nameController.text.trim(),
-    );
-  },
-),
+                        );
+                      },
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

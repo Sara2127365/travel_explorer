@@ -10,7 +10,11 @@ class AuthRepo {
     required String password,
     required String name,
   }) async {
-    await authRemoteDataSource.register(email, password, name);
+    await authRemoteDataSource.register(
+      email: email,
+      password: password,
+      name: name,
+    );
   }
 
   Future<void> login({required String email, required String password}) async {
@@ -18,6 +22,6 @@ class AuthRepo {
   }
 
   Future<void> sendPasswordResetEmail({required String email}) async {
-    await authRemoteDataSource.sendPasswordResetEmail(email: email);
+    await authRemoteDataSource.resetPassword(email: email);
   }
 }

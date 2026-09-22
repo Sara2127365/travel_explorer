@@ -7,6 +7,7 @@ import 'package:travel_explorer/feature/auth/presentation/ui/login_screen.dart';
 import 'package:travel_explorer/feature/auth/presentation/ui/sign_up_screen.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/ui/home_screen.dart';
+import 'package:travel_explorer/feature/mainnavigation/presentation/ui/main_screen.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -17,6 +18,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case AppRoutes.forgetpasswordScreen:
         return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
+        case AppRoutes.mainScreen:
+  return MaterialPageRoute(
+    builder: (_) => const MainScreen(),
+  );
       case AppRoutes.homeScreen:
   return MaterialPageRoute(
     builder: (_) => BlocProvider(
@@ -25,10 +30,9 @@ class AppRouter {
     ),
   );
 
-      default:
+     default:
         return MaterialPageRoute(
-          builder: (_) =>
-              const Scaffold(body: Center(child: Text('No Route Found'))),
+          builder: (_) => const LoginScreen(),
         );
     }
   }

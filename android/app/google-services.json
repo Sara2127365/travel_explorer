@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "204976102032",
+    "project_id": "travelexplor-1a5fe",
+    "storage_bucket": "travelexplor-1a5fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204976102032:android:4f43f57c7dcdc26a771615",
+        "android_client_info": {
+          "package_name": "com.example.travel_explorer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIOSf_3ANUUFGqm6nSSzTrJW_4jTdWDiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

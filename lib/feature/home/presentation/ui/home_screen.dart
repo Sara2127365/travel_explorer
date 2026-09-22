@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_explorer/core/widget/header.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_state.dart';
 import 'package:travel_explorer/feature/home/presentation/widgets/destination_card.dart';
@@ -23,9 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Travel Explorer'),
-      ),
+      appBar: Header(),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           if (state is LoadingHomeState) {

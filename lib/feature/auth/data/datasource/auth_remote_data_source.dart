@@ -1,27 +1,61 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRemoteDataSource {
-  final SupabaseClient supabase;
+  final FirebaseAuth firebaseAuth;
+  final FirebaseFirestore firestore;
 
-  AuthRemoteDataSource(this.supabase);
+  AuthRemoteDataSource(
+    this.firebaseAuth,
+    this.firestore,
+  );
 
-  Future<void> register(String email, String password, String name) async {
-    final response = await supabase.auth.signUp(
+  Future<UserCredential> register({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
+    final userCredential =
+        await firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
-      data: {'name': name},
     );
 
-    if (response.user == null) {
-      throw Exception('Failed to create account');
+    final user = userCredential.user;
+
+    if (user != null) {
+      await user.updateDisplayName(name);
+
+      await firestore.collection('users').doc(user.uid).set({
+       
+        'name': name,
+        'email': email,
+        
+      });
     }
+
+    return userCredential;
   }
 
-  Future<void> login({required String email, required String password}) async {
-    await supabase.auth.signInWithPassword(email: email, password: password);
+  Future<UserCredential> login({
+    required String email,
+    required String password,
+  }) async {
+    return await firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    await supabase.auth.resetPasswordForEmail(email);
+  Future<void> logout() async {
+    await firebaseAuth.signOut();
+  }
+
+  Future<void> resetPassword({
+    required String email,
+  }) async {
+    await firebaseAuth.sendPasswordResetEmail(
+      email: email,
+    );
   }
 }

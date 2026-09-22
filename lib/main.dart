@@ -1,17 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:travel_explorer/core/di/service_locaor.dart';
 import 'package:travel_explorer/core/routes/app_router.dart';
 import 'package:travel_explorer/core/routes/app_routes.dart';
+import 'package:travel_explorer/firebase_options.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Supabase.initialize(
-    url: 'https://mahjrsdfodssvftazlhu.supabase.co',
-    publishableKey: 'sb_publishable_izeIyPrWereHiVXoXWYcOg_ADlikzNg',
-  );
+ await dotenv.load(fileName: '.env');
+ 
+ await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform, );
+
+  
 
   await setupGetIt();
 
