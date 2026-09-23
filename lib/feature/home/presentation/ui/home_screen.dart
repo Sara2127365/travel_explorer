@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_explorer/core/widget/header.dart';
+import 'package:travel_explorer/feature/fav/presentation/cubit/fav_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_state.dart';
 import 'package:travel_explorer/feature/home/presentation/widgets/destination_card.dart';
@@ -78,16 +79,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? const Center(
                           child: Text('No destinations found'),
                         )
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                          ),
-                          itemCount: filteredPlaces.length,
-                          itemBuilder: (context, index) {
-                            final place = filteredPlaces[index];
+                      : BlocBuilder<FavoritesCubit, List>(
+                          builder: (context, favorites) {
+                            return ListView.builder(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              itemCount: filteredPlaces.length,
+                              itemBuilder: (context, index) {
+                                final place = filteredPlaces[index];
 
-                            return DestinationCard(
-                              place: place,
+                                final isFavorite = context
+                                    .read<FavoritesCubit>()
+                                    .isFavorite(place.placeId);
+
+                                return DestinationCard(
+                                  destination: place,
+                                  isFavorite: isFavorite,
+                                  onFavoritePressed: () {
+                                    context
+                                        .read<FavoritesCubit>()
+                                        .toggleFavorite(place);
+                                  },
+                                );
+                              },
                             );
                           },
                         ),

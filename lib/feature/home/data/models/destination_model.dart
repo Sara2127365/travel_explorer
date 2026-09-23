@@ -21,6 +21,7 @@ class DestinationModel {
     this.imageUrl,
   });
 
+  // Geoapify response
   factory DestinationModel.fromJson(Map<String, dynamic> json) {
     final properties =
         json['properties'] as Map<String, dynamic>;
@@ -40,6 +41,38 @@ class DestinationModel {
       lon: (properties['lon'] ?? coordinates[0]).toDouble(),
       formatted: properties['formatted'] ?? '',
       placeId: properties['place_id'] ?? '',
+    );
+  }
+
+  // Hive data
+  Map<String, dynamic> toHiveJson() {
+    return {
+      'name': name,
+      'country': country,
+      'countryCode': countryCode,
+      'city': city,
+      'lat': lat,
+      'lon': lon,
+      'formatted': formatted,
+      'placeId': placeId,
+      'imageUrl': imageUrl,
+    };
+  }
+
+  // Read data from Hive
+  factory DestinationModel.fromHiveJson(
+    Map<String, dynamic> json,
+  ) {
+    return DestinationModel(
+      name: json['name'] ?? '',
+      country: json['country'] ?? '',
+      countryCode: json['countryCode'] ?? '',
+      city: json['city'] ?? '',
+      lat: (json['lat'] as num).toDouble(),
+      lon: (json['lon'] as num).toDouble(),
+      formatted: json['formatted'] ?? '',
+      placeId: json['placeId'] ?? '',
+      imageUrl: json['imageUrl'],
     );
   }
 

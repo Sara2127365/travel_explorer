@@ -24,4 +24,6 @@ class AuthRepo {
   Future<void> sendPasswordResetEmail({required String email}) async {
     await authRemoteDataSource.resetPassword(email: email);
   }
+   
+
 }

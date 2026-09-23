@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_explorer/core/di/service_locaor.dart';
+import 'package:travel_explorer/feature/fav/presentation/cubit/fav_cubit.dart';
+import 'package:travel_explorer/feature/fav/presentation/ui/fav_screen.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/ui/home_screen.dart';
+import 'package:travel_explorer/feature/profile/presentation/ui/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -12,42 +15,41 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeCubit>(
+          create: (_) => getIt<HomeCubit>()..getPLaces(),
+        ),
+        BlocProvider<FavoritesCubit>(
+          create: (_) => getIt<FavoritesCubit>()..loadFavorites(),
+        ),
+      ],
+      child: const MainContent(),
+    );
+  }
+}
+
+class MainContent extends StatefulWidget {
+  const MainContent({super.key});
+
+  @override
+  State<MainContent> createState() => _MainContentState();
+}
+
+class _MainContentState extends State<MainContent> {
   int currentIndex = 0;
-
-  late final HomeCubit homeCubit;
-
-  @override
-  void initState() {
-    super.initState();
-
-    homeCubit = getIt<HomeCubit>();
-    homeCubit.getPLaces();
-  }
-
-  @override
-  void dispose() {
-    homeCubit.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [
-          BlocProvider.value(
-            value: homeCubit,
-            child: const HomeScreen(),
-          ),
-
-          const Center(
-            child: Text('Favorites'),
-          ),
-
-          const Center(
-            child: Text('Profile'),
-          ),
+        children: const [
+          HomeScreen(),
+          FavoritesScreen(),
+          ProfileScreen(),
         ],
       ),
 

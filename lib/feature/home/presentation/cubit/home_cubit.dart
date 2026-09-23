@@ -10,6 +10,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<DestinationModel> places = [];
 
+  List<String> favoritePlaceIds = [];
+
   Future<void> getPLaces() async {
     emit(LoadingHomeState());
 
@@ -20,5 +22,15 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       emit(FailureHomeState(e.toString()));
     }
+  }
+
+  void toggleFavorite(DestinationModel place) {
+    if (favoritePlaceIds.contains(place.placeId)) {
+      favoritePlaceIds.remove(place.placeId);
+    } else {
+      favoritePlaceIds.add(place.placeId);
+    }
+
+    emit(SuccessHomeState(places));
   }
 }
