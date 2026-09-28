@@ -452,6 +452,11 @@ Possible future improvements include:
 * CI/CD
 * Improved caching strategy
 
+## Project Management
+
+The project development and task management are organized using Trello.
+
+**Trello Board:** [Travel Explor - Trello](https://trello.com/invite/b/6ab12dad54db1e538dcd2c9a/ATTIe5e878e002e970492fc5d58dda14db75DA6C49F1/my-trello-board)
 
 
 ## Author
