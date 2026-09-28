@@ -56,7 +56,6 @@ class DefaultFirebaseOptions {
     projectId: 'travelexplor-1a5fe',
     storageBucket: 'travelexplor-1a5fe.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDSTCeEBqTPsy1b3heIOUJjugs2qGXjG3g',
     appId: '1:204976102032:ios:b928e1dfcf33786d771615',
@@ -65,7 +64,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'travelexplor-1a5fe.firebasestorage.app',
     iosBundleId: 'com.example.travelExplorer',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDSTCeEBqTPsy1b3heIOUJjugs2qGXjG3g',
     appId: '1:204976102032:ios:b928e1dfcf33786d771615',

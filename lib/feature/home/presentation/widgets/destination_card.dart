@@ -16,29 +16,25 @@ class DestinationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
-                ),
-                child: Image.network(
-                  destination.imageUrl ?? '',
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const SizedBox(
-                      height: 180,
-                      child: Center(
-                        child: Icon(Icons.image_not_supported),
-                      ),
-                    );
-                  },
-                ),
+              Image.network(
+                destination.imageUrl ?? '',
+                height: 180,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const SizedBox(
+                    height: 180,
+                    child: Center(
+                      child: Icon(Icons.image_not_supported),
+                    ),
+                  );
+                },
               ),
 
               Padding(
@@ -67,7 +63,6 @@ class DestinationCard extends StatelessWidget {
             ],
           ),
 
-          // Favorite button
           Positioned(
             top: 10,
             right: 10,

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_explorer/core/di/service_locaor.dart';
@@ -11,7 +12,9 @@ import 'package:travel_explorer/feature/home/presentation/ui/home_screen.dart';
 import 'package:travel_explorer/feature/mainnavigation/presentation/ui/main_screen.dart';
 
 class AppRouter {
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  static Route<dynamic> onGenerateRoute(
+    RouteSettings settings,
+  ) {
     switch (settings.name) {
       case AppRoutes.registerScreen:
         return MaterialPageRoute(
@@ -29,8 +32,13 @@ class AppRouter {
         );
 
       case AppRoutes.mainScreen:
+        final initialIndex =
+            settings.arguments as int? ?? 0;
+
         return MaterialPageRoute(
-          builder: (_) => const MainScreen(),
+          builder: (_) => MainScreen(
+            initialIndex: initialIndex,
+          ),
         );
 
       case AppRoutes.homeScreen:
@@ -38,10 +46,12 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<HomeCubit>(
-                create: (_) => getIt<HomeCubit>()..getPLaces(),
+                create: (_) =>
+                    getIt<HomeCubit>()..getPLaces(),
               ),
               BlocProvider<FavoritesCubit>(
-                create: (_) => getIt<FavoritesCubit>()..loadFavorites(),
+                create: (_) =>
+                    getIt<FavoritesCubit>()..loadFavorites(),
               ),
             ],
             child: const HomeScreen(),
@@ -55,3 +65,4 @@ class AppRouter {
     }
   }
 }
+

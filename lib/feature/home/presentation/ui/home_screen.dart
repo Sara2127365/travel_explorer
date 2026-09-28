@@ -1,9 +1,14 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_explorer/core/localization/app_localizations.dart';
+
+
 import 'package:travel_explorer/core/widget/header.dart';
 import 'package:travel_explorer/feature/fav/presentation/cubit/fav_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_state.dart';
+import 'package:travel_explorer/feature/home/presentation/ui/destination_detials_screen.dart';
 import 'package:travel_explorer/feature/home/presentation/widgets/destination_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: Header(),
       body: BlocBuilder<HomeCubit, HomeState>(
@@ -42,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (state is SuccessHomeState) {
             if (state.places.isEmpty) {
-              return const Center(
-                child: Text('No places found'),
+              return Center(
+                child: Text(localization.noPlacesFound),
               );
             }
 
@@ -65,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {});
                     },
                     decoration: InputDecoration(
-                      hintText: 'Search destinations...',
+                      hintText: localization.searchDestinations,
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -76,8 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 Expanded(
                   child: filteredPlaces.isEmpty
-                      ? const Center(
-                          child: Text('No destinations found'),
+                      ? Center(
+                          child: Text(
+                            localization.noDestinationsFound,
+                          ),
                         )
                       : BlocBuilder<FavoritesCubit, List>(
                           builder: (context, favorites) {
@@ -93,14 +102,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<FavoritesCubit>()
                                     .isFavorite(place.placeId);
 
-                                return DestinationCard(
-                                  destination: place,
-                                  isFavorite: isFavorite,
-                                  onFavoritePressed: () {
-                                    context
-                                        .read<FavoritesCubit>()
-                                        .toggleFavorite(place);
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            DestinationDetailsScreen(
+                                          destination: place,
+                                        ),
+                                      ),
+                                    );
                                   },
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: DestinationCard(
+                                    destination: place,
+                                    isFavorite: isFavorite,
+                                    onFavoritePressed: () {
+                                      context
+                                          .read<FavoritesCubit>()
+                                          .toggleFavorite(place);
+                                    },
+                                  ),
                                 );
                               },
                             );
@@ -117,3 +140,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+

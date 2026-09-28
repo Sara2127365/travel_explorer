@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import 'package:travel_explorer/core/di/service_locaor.dart';
-import 'package:travel_explorer/core/routes/app_routes.dart';
+import 'package:travel_explorer/core/localization/app_localizations.dart';
 import 'package:travel_explorer/core/widget/button_app.dart';
 import 'package:travel_explorer/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:travel_explorer/feature/auth/presentation/cubit/auth_state.dart';
@@ -11,11 +13,14 @@ class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+  State<ForgetPasswordScreen> createState() =>
+      _ForgetPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  final TextEditingController _emailController = TextEditingController();
+class _ForgetPasswordScreenState
+    extends State<ForgetPasswordScreen> {
+  final TextEditingController _emailController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -25,10 +30,16 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (context) => getIt<AuthCubit>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('نسيت كلمة المرور')),
+        appBar: AppBar(
+          title: Text(
+            localization.forgotPasswordTitle,
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: BlocConsumer<AuthCubit, AuthState>(
@@ -60,27 +71,33 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(Icons.lock_reset, size: 80, color: Colors.blue),
+                  const Icon(
+                    Icons.lock_reset,
+                    size: 80,
+                    color: Colors.blue,
+                  ),
 
                   const SizedBox(height: 20),
 
-                  const Text(
-                    'ادخل البريد الإلكتروني المسجل بالفعل',
+                  Text(
+                    localization.enterRegisteredEmail,
                     textAlign: TextAlign.center,
                   ),
 
                   const SizedBox(height: 10),
 
-                  const Text(
-                    'سنرسل لك رابطاً لإعادة تعيين كلمة المرور',
-                    style: TextStyle(color: Colors.grey),
+                  Text(
+                    localization.resetPasswordDescription,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                    ),
                     textAlign: TextAlign.center,
                   ),
 
                   const SizedBox(height: 30),
 
                   CustomTextFormField(
-                    label: 'البريد الإلكتروني',
+                    label: localization.email,
                     controller: _emailController,
                     isPassword: false,
                     readOnly: isLoading,
@@ -90,12 +107,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   const SizedBox(height: 25),
 
                   ButtonApp(
-                    text: 'Reset Password',
+                    text: localization.resetPassword,
                     isLoading: isLoading,
                     onPressed: () {
-                      context.read<AuthCubit>().sendPasswordResetEmail(
-                        email: _emailController.text.trim(),
-                      );
+                      context
+                          .read<AuthCubit>()
+                          .sendPasswordResetEmail(
+                            email: _emailController.text.trim(),
+                          );
                     },
                   ),
                 ],
@@ -106,4 +125,4 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       ),
     );
   }
-}
+    }

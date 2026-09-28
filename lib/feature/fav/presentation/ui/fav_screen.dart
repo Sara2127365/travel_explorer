@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_explorer/core/localization/app_localizations.dart';
+
+import 'package:travel_explorer/core/notifications/notification_service.dart';
 import 'package:travel_explorer/core/widget/header.dart';
 import 'package:travel_explorer/feature/fav/presentation/cubit/fav_cubit.dart';
 import 'package:travel_explorer/feature/home/data/models/destination_model.dart';
@@ -10,15 +14,20 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: Header(),
+
       body: BlocBuilder<FavoritesCubit, List<DestinationModel>>(
         builder: (context, favorites) {
           if (favorites.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                'No favorite destinations yet',
-                style: TextStyle(fontSize: 16),
+                localization.noFavoriteDestinations,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
               ),
             );
           }
@@ -33,13 +42,30 @@ class FavoritesScreen extends StatelessWidget {
                 destination: place,
                 isFavorite: true,
                 onFavoritePressed: () {
-                  context.read<FavoritesCubit>().toggleFavorite(place);
+                  context
+                      .read<FavoritesCubit>()
+                      .toggleFavorite(place);
                 },
               );
             },
           );
         },
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await NotificationService.scheduleNotification(
+            id: 10,
+            title: localization.tripReminder,
+            body: localization.tripComingSoon,
+            scheduledDate: DateTime.now().add(
+              const Duration(minutes: 2),
+            ),
+          );
+        },
+        child: const Icon(Icons.alarm),
+      ),
     );
   }
 }
+

@@ -1,16 +1,25 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import 'package:travel_explorer/core/di/service_locaor.dart';
+import 'package:travel_explorer/core/localization/app_localizations.dart';
 import 'package:travel_explorer/core/routes/app_routes.dart';
 import 'package:travel_explorer/core/widget/header.dart';
+import 'package:travel_explorer/feature/profile/presentation/cubit/locale_cubit.dart';
 import 'package:travel_explorer/feature/profile/presentation/cubit/profile_cubit.dart';
 import 'package:travel_explorer/feature/profile/presentation/cubit/profile_state.dart';
+import 'package:travel_explorer/feature/profile/presentation/cubit/theme_cubit.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (context) => getIt<ProfileCubit>()..getUserData(),
       child: BlocConsumer<ProfileCubit, ProfileState>(
@@ -34,7 +43,6 @@ class ProfileScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is LoadingProfileState) {
             return const Scaffold(
-             
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -47,6 +55,12 @@ class ProfileScreen extends StatelessWidget {
             final name = userData['name'] ?? 'User';
             final email = userData['email'] ?? '';
 
+            final isDarkMode =
+                context.watch<ThemeCubit>().state == ThemeMode.dark;
+
+            final currentLocale =
+                context.watch<LocaleCubit>().state.languageCode;
+
             return Scaffold(
               appBar: Header(),
               body: Padding(
@@ -58,9 +72,7 @@ class ProfileScreen extends StatelessWidget {
                     CircleAvatar(
                       radius: 50,
                       child: Text(
-                        name.isNotEmpty
-                            ? name[0].toUpperCase()
-                            : '?',
+                        name.isNotEmpty ? name[0].toUpperCase() : '?',
                         style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -89,6 +101,50 @@ class ProfileScreen extends StatelessWidget {
 
                     const SizedBox(height: 40),
 
+                    // Dark Mode
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(localization.darkMode),
+                      secondary: const Icon(Icons.dark_mode),
+                      value: isDarkMode,
+                      onChanged: (_) {
+                        context.read<ThemeCubit>().toggleTheme();
+                      },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Language
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.language),
+                      title: Text(localization.language),
+                      trailing: DropdownButton<String>(
+                        value: currentLocale,
+                        underline: const SizedBox(),
+                        items: [
+                          DropdownMenuItem(
+                            value: 'en',
+                            child: Text(localization.english),
+                          ),
+                          DropdownMenuItem(
+                            value: 'ar',
+                            child: Text(localization.arabic),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          if (value != null) {
+                            context
+                                .read<LocaleCubit>()
+                                .changeLanguage(value);
+                          }
+                        },
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Logout
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
@@ -96,7 +152,7 @@ class ProfileScreen extends StatelessWidget {
                           context.read<ProfileCubit>().logout();
                         },
                         icon: const Icon(Icons.logout),
-                        label: const Text('Logout'),
+                        label: Text(localization.logout),
                       ),
                     ),
                   ],
@@ -105,9 +161,9 @@ class ProfileScreen extends StatelessWidget {
             );
           }
 
-          return const Scaffold(
+          return Scaffold(
             body: Center(
-              child: Text('No user data'),
+              child: Text(localization.noUserData),
             ),
           );
         },

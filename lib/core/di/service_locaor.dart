@@ -14,6 +14,9 @@ import 'package:travel_explorer/feature/home/data/datasource/home_remote_data_so
 import 'package:travel_explorer/feature/home/data/datasource/image_remote_data_source.dart';
 import 'package:travel_explorer/feature/home/data/repo/home_repo.dart';
 import 'package:travel_explorer/feature/home/presentation/cubit/home_cubit.dart';
+import 'package:travel_explorer/feature/hotels/data/datasource/hotel_remote_data_source.dart';
+import 'package:travel_explorer/feature/hotels/data/repo/hotel_repo.dart';
+import 'package:travel_explorer/feature/hotels/presentation/cubit/hotel_cubit.dart';
 import 'package:travel_explorer/feature/profile/data/datasource/profile_remote_data_source.dart';
 import 'package:travel_explorer/feature/profile/data/repo/profile_repo.dart';
 import 'package:travel_explorer/feature/profile/presentation/cubit/profile_cubit.dart';
@@ -107,6 +110,24 @@ getIt.registerLazySingleton<FavoritesRepo>(
 getIt.registerFactory<FavoritesCubit>(
   () => FavoritesCubit(
     getIt<FavoritesRepo>(),
+  ),
+);
+
+getIt.registerLazySingleton<HotelRemoteDataSource>(
+  () => HotelRemoteDataSource(
+    getIt<Dio>(),
+  ),
+);
+
+getIt.registerLazySingleton<HotelRepo>(
+  () => HotelRepo(
+    getIt<HotelRemoteDataSource>(),
+  ),
+);
+
+getIt.registerFactory<HotelCubit>(
+  () => HotelCubit(
+    getIt<HotelRepo>(),
   ),
 );
 }

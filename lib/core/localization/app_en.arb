@@ -1,0 +1,57 @@
+
+{
+  "welcomeBack": "Welcome Back",
+  "createAccount": "Create Account",
+
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+
+  "login": "Login",
+  "signUp": "Sign Up",
+  "forgetPassword": "Forget Password",
+
+  "dontHaveAccount": "Don't have an account?",
+  "alreadyHaveAccount": "You already have an account",
+
+  "searchDestinations": "Search destinations...",
+  "noPlacesFound": "No places found",
+  "noDestinationsFound": "No destinations found",
+
+  "forgotPasswordTitle": "Forgot Password",
+  "enterRegisteredEmail": "Enter your registered email",
+  "resetPasswordDescription": "We will send you a link to reset your password",
+  "resetPassword": "Reset Password",
+
+  "noUserData": "No user data",
+  "darkMode": "Dark Mode",
+  "language": "Language",
+  "english": "English",
+  "arabic": "Arabic",
+  "logout": "Logout",
+
+  "noFavoriteDestinations": "No favorite destinations yet",
+
+  "tripReminder": "Trip Reminder ✈️",
+  "tripComingSoon": "Your trip is coming soon!",
+
+  "pleaseSelectCheckIn": "Please select check-in date first",
+  "pleaseEnterDestination": "Please enter a destination",
+  "pleaseSelectDates": "Please select check-in and check-out dates",
+
+  "selectDate": "Select date",
+
+  "hotels": "Hotels",
+  "noHotelsFound": "No hotels found",
+  "searchHotelsHint": "Search for hotels in your destination",
+
+  "destination": "Destination",
+  "destinationExample": "e.g. Sibenik, HR",
+  "adults": "Adults",
+  "children": "Children",
+  "searchHotels": "Search Hotels",
+  "home": "Home",
+  "favorites": "Favorites",
+  "profile": "Profile"
+}
+

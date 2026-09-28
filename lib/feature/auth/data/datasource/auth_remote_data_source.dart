@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,10 +28,8 @@ class AuthRemoteDataSource {
       await user.updateDisplayName(name);
 
       await firestore.collection('users').doc(user.uid).set({
-       
         'name': name,
         'email': email,
-        
       });
     }
 
@@ -47,7 +46,6 @@ class AuthRemoteDataSource {
     );
   }
 
- 
   Future<void> resetPassword({
     required String email,
   }) async {
@@ -55,6 +53,5 @@ class AuthRemoteDataSource {
       email: email,
     );
   }
-   
-
 }
+

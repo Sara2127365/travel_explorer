@@ -1,9 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_explorer/core/di/service_locaor.dart';
+import 'package:travel_explorer/core/localization/app_localizations.dart';
 import 'package:travel_explorer/core/routes/app_routes.dart';
 import 'package:travel_explorer/core/widget/button_app.dart';
 import 'package:travel_explorer/feature/auth/presentation/widget/custom_text_form_field.dart';
+
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
 
@@ -39,111 +42,156 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (context) => getIt<AuthCubit>(),
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: BlocConsumer<AuthCubit, AuthState>(
-              listener: (context, state) {
-                if (state is AuthSuccess) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: BlocConsumer<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                          if (state is AuthSuccess) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(state.message),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
 
-                  Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
-                }
+                            Navigator.pushReplacementNamed(
+                              context,
+                              AppRoutes.loginScreen,
+                            );
+                          }
 
-                if (state is AuthFailure) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
-                }
-              },
-              builder: (context, state) {
-                final isLoading = state is AuthLoading;
+                          if (state is AuthFailure) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(state.message),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          final isLoading = state is AuthLoading;
 
-                return Column(
-                  children: [
-                    const SizedBox(height: 30),
+                          return Column(
+                            children: [
+                              const SizedBox(height: 30),
 
-                    const Text(
-                      'Create Account',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                              Text(
+                                localization.createAccount,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              const SizedBox(height: 30),
+
+                              CustomTextFormField(
+                                label: localization.name,
+                                controller: nameController,
+                                isPassword: false,
+                                readOnly: isLoading,
+                                prefixIcon: Icons.person,
+                              ),
+
+                              const SizedBox(height: 15),
+
+                              CustomTextFormField(
+                                label: localization.email,
+                                controller: emailController,
+                                isPassword: false,
+                                readOnly: isLoading,
+                                prefixIcon: Icons.email,
+                              ),
+
+                              const SizedBox(height: 15),
+
+                              CustomTextFormField(
+                                label: localization.password,
+                                controller: passwordController,
+                                isPassword: true,
+                                readOnly: isLoading,
+                                prefixIcon: Icons.password,
+                                suffixIcon: const Icon(
+                                  Icons.remove_red_eye_sharp,
+                                ),
+                              ),
+
+                              const SizedBox(height: 30),
+
+                              ButtonApp(
+                                text: localization.signUp,
+                                isLoading: isLoading,
+                                onPressed: () {
+                                  context.read<AuthCubit>().register(
+                                        email:
+                                            emailController.text.trim(),
+                                        password:
+                                            passwordController.text.trim(),
+                                        name:
+                                            nameController.text.trim(),
+                                      );
+                                },
+                              ),
+
+                              const Spacer(),
+
+                              const SizedBox(height: 30),
+
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    localization.alreadyHaveAccount,
+                                  ),
+                                  TextButton(
+                                    onPressed: isLoading
+                                        ? null
+                                        : () {
+                                            Navigator
+                                                .pushReplacementNamed(
+                                              context,
+                                              AppRoutes.loginScreen,
+                                            );
+                                          },
+                                    child: Text(
+                                      localization.login,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              const SizedBox(height: 10),
+                            ],
+                          );
+                        },
                       ),
                     ),
-
-                    const SizedBox(height: 30),
-
-                    CustomTextFormField(
-                      label: 'Name',
-                      controller: nameController,
-                      isPassword: false,
-                      readOnly: isLoading,
-                      prefixIcon: Icons.person,
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    CustomTextFormField(
-                      label: 'Email',
-                      controller: emailController,
-                      isPassword: false,
-                      readOnly: isLoading,
-                      prefixIcon: Icons.email,
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    CustomTextFormField(
-                      label: 'Password',
-                      controller: passwordController,
-                      isPassword: true,
-                      readOnly: isLoading,
-                      prefixIcon: Icons.password,
-                      suffixIcon: Icon(Icons.remove_red_eye_sharp),
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    ButtonApp(
-                      text: 'Sign Up',
-                      isLoading: isLoading,
-                      onPressed: () {
-                        context.read<AuthCubit>().register(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim(),
-                          name: nameController.text.trim(),
-                        );
-                      },
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('You have already account '),
-                        TextButton(
-                          onPressed: isLoading
-                              ? null
-                              : () {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    AppRoutes.loginScreen,
-                                  );
-                                },
-                          child: const Text('Login'),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
     );
   }
 }
+

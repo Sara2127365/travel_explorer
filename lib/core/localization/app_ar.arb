@@ -1,0 +1,56 @@
+
+{
+  "welcomeBack": "مرحبًا بعودتك",
+  "createAccount": "إنشاء حساب",
+
+  "name": "الاسم",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+
+  "login": "تسجيل الدخول",
+  "signUp": "إنشاء حساب",
+  "forgetPassword": "نسيت كلمة المرور",
+
+  "dontHaveAccount": "ليس لديك حساب؟",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+
+  "searchDestinations": "ابحث عن وجهات...",
+  "noPlacesFound": "لم يتم العثور على أماكن",
+  "noDestinationsFound": "لم يتم العثور على وجهات",
+
+  "forgotPasswordTitle": "نسيت كلمة المرور",
+  "enterRegisteredEmail": "أدخل البريد الإلكتروني المسجل",
+  "resetPasswordDescription": "سنرسل لك رابطًا لإعادة تعيين كلمة المرور",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+
+  "noUserData": "لا توجد بيانات للمستخدم",
+  "darkMode": "الوضع الداكن",
+  "language": "اللغة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "logout": "تسجيل الخروج",
+  "noFavoriteDestinations": "لا توجد وجهات مفضلة حتى الآن",
+
+  "tripReminder": "تذكير بالرحلة ✈️",
+  "tripComingSoon": "رحلتك قادمة قريبًا!",
+
+  "pleaseSelectCheckIn": "من فضلك اختر تاريخ تسجيل الوصول أولًا",
+  "pleaseEnterDestination": "من فضلك أدخل وجهة",
+  "pleaseSelectDates": "من فضلك اختر تاريخ تسجيل الوصول والمغادرة",
+
+  "selectDate": "اختر التاريخ",
+
+  "hotels": "الفنادق",
+  "noHotelsFound": "لم يتم العثور على فنادق",
+  "searchHotelsHint": "ابحث عن فنادق في وجهتك",
+
+  "destination": "الوجهة",
+  "destinationExample": "مثال: Sibenik, HR",
+  "adults": "البالغون",
+  "children": "الأطفال",
+  "searchHotels": "البحث عن الفنادق",
+  "home": "الرئيسية",
+  "favorites": "المفضلة",
+  "profile": "الملف الشخصي"
+}
+

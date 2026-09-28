@@ -1,3 +1,4 @@
+
 import 'package:travel_explorer/feature/auth/data/datasource/auth_remote_data_source.dart';
 
 class AuthRepo {
@@ -17,13 +18,22 @@ class AuthRepo {
     );
   }
 
-  Future<void> login({required String email, required String password}) async {
-    await authRemoteDataSource.login(email: email, password: password);
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
+    await authRemoteDataSource.login(
+      email: email,
+      password: password,
+    );
   }
 
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    await authRemoteDataSource.resetPassword(email: email);
+  Future<void> sendPasswordResetEmail({
+    required String email,
+  }) async {
+    await authRemoteDataSource.resetPassword(
+      email: email,
+    );
   }
-   
-
 }
+

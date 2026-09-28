@@ -12,7 +12,20 @@
           "package_name": "com.example.travel_explorer"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "204976102032-7qn9t9t7llh0qvvr5pd63q00q9q5p69q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travel_explorer",
+            "certificate_hash": "15b2d7f58fad20874fcec67e5f416387e1e81e28"
+          }
+        },
+        {
+          "client_id": "204976102032-m0gvpka99m7bs2bech19hta8lhfbjrgf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCIOSf_3ANUUFGqm6nSSzTrJW_4jTdWDiQ"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204976102032-m0gvpka99m7bs2bech19hta8lhfbjrgf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "204976102032-73jvua31j61l7qv4dj7aitb1bts3b0qe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.travelExplorer"
+              }
+            }
+          ]
         }
       }
     }
